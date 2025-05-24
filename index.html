@@ -272,16 +272,21 @@
     logoElem.style.position = 'relative';
     logoElem.style.zIndex = '2';
 
-    let coinNames = [];
+    let coinNames = [
+  { "Coin Name": "$FART", "Description": "Gassy tokenomics. Silent but deadly." },
+  { "Coin Name": "$RUGGED", "Description": "Honest name. Dishonest devs." },
+  { "Coin Name": "$PEEHPEE", "Description": "Childish? Yes. Viral? Absolutely." },
+  { "Coin Name": "$SIMP", "Description": "Max wallet capped at her OnlyFans subscription." },
+  { "Coin Name": "$COPE", "Description": "Post-trade depression, tokenized." }
+];
 
 fetch('https://raw.githubusercontent.com/BXNSAVAGE/memecoin-assets/refs/heads/main/Full_Meme_Coin_List_with_Descriptions.json')
   .then(response => response.json())
   .then(data => {
-    coinNames = data;
+    coinNames = coinNames.concat(data);
     document.getElementById('generateBtn').disabled = false;
     document.getElementById('generateBtn').textContent = 'Generate New Coin';
     document.getElementById('generateBtn').addEventListener('click', generateCoin);
-    generateCoin(); // instantly show first coin
   })
   .catch(err => console.error('Failed to load coin names:', err));
     const suffixes = ['Coin', 'Swap', 'Gas', 'Bot', 'TV', 'Fi', 'ZAP', 'Drip', 'Snax', 'Blast', 'Flip', 'Gob', 'Zap', 'Cash', 'Drop', 'Flow', 'Boop', 'Blurt', 'Jig', 'Buzz'];
