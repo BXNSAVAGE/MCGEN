@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+$1
+  <link rel="preload" as="image" href="https://github.com/BXNSAVAGE/memecoin-assets/blob/main/ChatGPT%20Image%20May%2024,%202025,%2002_24_02%20AM.png?raw=true">
+  <link rel="preload" as="image" href="https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-poop.png?raw=true">
+  <link rel="preload" as="image" href="https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background/background-orange.png?raw=true">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MemeCoin Generator</title>
@@ -256,6 +260,7 @@
 ];
 
     setInterval(() => {
+  if (foregroundImages.length === 0) return;
       const img = document.createElement('img');
       img.src = foregroundImages[Math.floor(Math.random() * foregroundImages.length)];
       img.className = 'bg-image';
@@ -266,7 +271,7 @@
       document.getElementById('bg-layer').appendChild(img);
 
       setTimeout(() => img.remove(), 20000);
-    }, 1000);
+    }, 3000);
 
     const logoElem = document.getElementById('logo');
     logoElem.style.position = 'relative';
