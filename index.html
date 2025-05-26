@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <link rel="preload" as="image" href="https://github.com/BXNSAVAGE/memecoin-assets/blob/main/ChatGPT%20Image%20May%2024,%202025,%2002_24_02%20AM.png?raw=true">
+  <link rel="preload" as="image" href="https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-poop.png?raw=true">
+  <link rel="preload" as="image" href="https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background/background-orange.png?raw=true">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MemeCoin Generator</title>
@@ -9,74 +12,478 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
       background: #000;
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Segoe UI', sans-serif;
+      flex-direction: column;
+      position: relative;
     }
-    #lockscreen {
+
+    .bg-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-image {
+      position: absolute;
+      width: 200px;
+      opacity: 0.05;
+      animation: float 15s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-200vh) rotate(360deg); }
+    }
+
+    .container {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      z-index: 1;
     }
-    #passwordInput {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: none;
-      margin-top: 10px;
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(270deg, #ffffff, #cccccc, #ffffff);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+      animation: animateGradient 20s ease-in-out infinite, subtleHue 20s linear infinite;
     }
-    #unlockBtn {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #1da1f2;
-      color: white;
-      cursor: pointer;
-    }
-    #mainContent {
-      display: none;
+
+    .card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 500px;
       width: 100%;
-      height: 100%;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      animation: rgbGlow 10s linear infinite;
+      text-align: center;
     }
-  </style>
+
+    .logo img {
+      max-width: 400px;
+      margin-bottom: 1rem;
+    }
+
+    .token-name {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .story, .extra {
+      font-size: 1.1rem;
+      color: #aaa;
+      margin: 0.5rem 0;
+    }
+
+    .button {
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: 2rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .rarity {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .common {
+  background: #2c2c2c;
+  color: #b0b0b0;
+  border: 1px solid #444;
+}
+    .rare {
+  background: linear-gradient(to right, #6610f2, #6f42c1);
+  color: #fff;
+  border: 1px solid #c9a3ff;
+}
+    .legendary {
+  background: linear-gradient(to right, gold, orange);
+  color: #000;
+  border: 1px solid #ffcc00;
+}
+    @keyframes rgbGlow {
+    0%   { box-shadow: 0 12px 40px rgba(255, 0, 0, 0.3); }
+    16%  { box-shadow: 0 12px 40px rgba(255, 165, 0, 0.3); }
+    33%  { box-shadow: 0 12px 40px rgba(255, 255, 0, 0.3); }
+    50%  { box-shadow: 0 12px 40px rgba(0, 255, 0, 0.3); }
+    66%  { box-shadow: 0 12px 40px rgba(0, 255, 255, 0.3); }
+    83%  { box-shadow: 0 12px 40px rgba(0, 0, 255, 0.3); }
+    100% { box-shadow: 0 12px 40px rgba(255, 0, 255, 0.3); }
+  }
+    16%  { box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3); }
+    33%  { box-shadow: 0 10px 30px rgba(255, 255, 0, 0.3); }
+    50%  { box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3); }
+    66%  { box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3); }
+    83%  { box-shadow: 0 10px 30px rgba(0, 0, 255, 0.3); }
+    100% { box-shadow: 0 10px 30px rgba(255, 0, 255, 0.3); }
+  }
+@keyframes animateGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes subtleHue {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+</style>
 </head>
-<body>
-  <div id="lockscreen">
-    <h2>Enter Password</h2>
-    <input type="password" id="passwordInput" placeholder="Password">
-    <button id="unlockBtn">Unlock</button>
+<img src="https://github.com/BXNSAVAGE/memecoin-assets/blob/main/ChatGPT%20Image%2024.%20Mai%202025,%2002_18_17.png?raw=true" alt="Top Right Icon" style="position: fixed; top: 10px; right: 10px; width: 100px; height: auto; z-index: 9999;">
+  <div style="position: absolute; top: 10px; left: 10px; z-index: 100; color: white; font-size: 1rem; font-family: monospace; background: rgba(0,0,0,0.6); padding: 6px 12px; border-radius: 8px;">
+    CA: 0x0000000000000000000000000000000000000000
   </div>
-  <div id="mainContent">
-    <!-- Original HTML content starts here -->
-    <!-- PLACEHOLDER: the original content will be restored here on unlock -->
+  <div class="bg-layer" id="bg-layer"></div>
+
+  <div class="container">
+    <h1>MemeCoin Generator</h1>
+
+    <div class="card" style="min-height: 600px;" id="output">
+      <div class="logo" id="logo">
+  <img src="https://github.com/BXNSAVAGE/memecoin-assets/blob/main/ChatGPT%20Image%20May%2024,%202025,%2002_24_02%20AM.png?raw=true" alt="logo" style="width: 400px; height: 400px;">
+</div>
+      <div class="token-name" id="name">$MCG</div>
+      <p class="story" id="story">Click Generate New Coin</p>
+      <p class="extra" id="extra">Rug Score: 82% | Utility: Croak-to-Earn</p>
+      <div class="rarity common" id="rarity">Common</div>
+    </div>
+
+    <div style="position: relative; margin-top: 2rem;">
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <button class="button" id="generateBtn" disabled>Loading Coins...</button>
+  </div>
+  <button class="button" onclick="shareToX()" style="background: #1da1f2; color: white; padding: 0.6rem 1.2rem; font-size: 0.9rem;">Share to X</button>
+    <button class="button" onclick="deployToPump()" style="background: #00cc66; color: black; padding: 0.6rem 1.2rem; font-size: 0.9rem; margin-left: 1rem;">Deploy to Pump</button>
+  </div>
+</div>
   </div>
 
   <script>
-    document.getElementById('unlockBtn').addEventListener('click', function() {
-      const input = document.getElementById('passwordInput').value;
-      if (input === '8991') {
-        document.getElementById('lockscreen').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-        document.getElementById('mainContent').innerHTML = document.getElementById('pageContent').textContent;
-        eval(document.getElementById('pageScripts').textContent);
-      } else {
-        alert('Incorrect password');
-      }
-    });
-  </script>
+    const backgroundImages = [
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background/background-green.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background/background-orange.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background/background-red.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background%202/background-black.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background%202/background-purple.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background%202/background-white.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Background%202/background-pink.png?raw=true'
+];
 
-  <script id="pageScripts" type="text/plain">
-    // original script content was here and will be restored on unlock
-  </script>
-  <script id="pageContent" type="text/plain">
-    <!--
-    " + document.documentElement.innerHTML.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, '') + "
-    -->
-  </script>
+    const foregroundImages = [
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-creature%20face.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-dog.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-dollar.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-frog.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-gun.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-idiot.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-poop.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground/foreground-toilet.png?raw=true',
+
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-bag.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-boomer.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-clown.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-dog2.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-dollarface.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-dumbbell.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-frog.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-granny.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-gun.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-idiot.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-jesus.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-robot.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-sniff.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-susalien.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-tvhead.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-vape.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%202/foreground-wizard.png?raw=true',
+
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-rug-granny.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-pyramid.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-pree.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-hopium-gasmask2.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-hopium%20gas%20mask.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-exit%20button.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-crying.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-coin-banana2.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-coin-banana.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-clown%20coin.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-Toilet%20Overflowing%20with%20Coins.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-Goblin%20Screaming%20at%20Candles.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-Dev-running.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-Crying%20Trader%20at%20Red%20Chart.png?raw=true',
+  "https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground-Bagholder%20With%20'REKT'%20Label.png?raw=true",
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground%20-%20blue%20goblin.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground%20-%20Zombie%20Dog%20Chasing%20Coin.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground%20-%20Thumb%20Swiping%20on%20a%20Trading%20App%20.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground%20-%20Melting%20Coin%20Screaming%20%E2%80%9CMoan%E2%80%9D.png?raw=true',
+  "https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground%20-%20Kevin%20Holding%20'I%20Bought%20the%20Top'%20Sign.png?raw=true",
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground%20-%20Crying%20Wallet%20Leaking%20SOL%20.png?raw=true',
+  'https://github.com/BXNSAVAGE/memecoin-assets/blob/main/Foreground%203/foreground%20-%202Zombie%20Dog%20Chasing%20Coin.png?raw=true'
+];
+
+    setInterval(() => {
+  if (foregroundImages.length === 0) return;
+      const img = document.createElement('img');
+      img.src = foregroundImages[Math.floor(Math.random() * foregroundImages.length)];
+      img.className = 'bg-image';
+      img.style.top = '100%';
+      img.style.left = `${Math.random() * 100}%`;
+      img.style.width = `${100 + Math.random() * 200}px`;
+      img.style.animationDuration = `${20 + Math.random() * 10}s`;
+      document.getElementById('bg-layer').appendChild(img);
+
+      setTimeout(() => img.remove(), 20000);
+    }, 3000);
+
+    const logoElem = document.getElementById('logo');
+    logoElem.style.position = 'relative';
+    logoElem.style.zIndex = '2';
+
+    let coinNames = [
+  { "Coin Name": "$FART", "Description": "Gassy tokenomics. Silent but deadly." },
+  { "Coin Name": "$RUGGED", "Description": "Honest name. Dishonest devs." },
+  { "Coin Name": "$PEEHPEE", "Description": "Childish? Yes. Viral? Absolutely." },
+  { "Coin Name": "$SIMP", "Description": "Max wallet capped at her OnlyFans subscription." },
+  { "Coin Name": "$COPE", "Description": "Post-trade depression, tokenized." }
+];
+
+fetch('https://raw.githubusercontent.com/BXNSAVAGE/memecoin-assets/refs/heads/main/Full_Meme_Coin_List_with_Descriptions.json')
+  .then(response => response.json())
+  .then(data => {
+    coinNames = coinNames.concat(data);
+    document.getElementById('generateBtn').disabled = false;
+    document.getElementById('generateBtn').textContent = 'Generate New Coin';
+    document.getElementById('generateBtn').addEventListener('click', generateCoin);
+  })
+  .catch(err => console.error('Failed to load coin names:', err));
+    const suffixes = ['Coin', 'Swap', 'Gas', 'Bot', 'TV', 'Fi', 'ZAP', 'Drip', 'Snax', 'Blast', 'Flip', 'Gob', 'Zap', 'Cash', 'Drop', 'Flow', 'Boop', 'Blurt', 'Jig', 'Buzz'];
+    const stories = [
+      "Launched by a dev who vanished after tweeting 'wen moon?'.",
+      "Inspired by a hallucination after 36 hours of trading.",
+      "Forked from another rug. Now it’s our turn.",
+      "Promised to fight inflation. Actually inflated itself.",
+      "Born during a Discord argument about who’s more based.",
+      "Deployed by accident, now worth $12M.",
+      "Says it’s for the culture. No one knows what that means.",
+      "Utilizes the ancient power of meme compression."
+    ];
+    const utilities = ['Croak-to-Earn', 'No Utility', 'Community Cult', 'AI Trading Bot', 'Toilet Tokenomics', 'Stake Your Dignity', 'Rebase by Vibes', 'Post-to-Mint'];
+
+    function getRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function animateText(element, values, duration, finalValue) {
+      const interval = 100;
+      let elapsed = 0;
+      const flip = setInterval(() => {
+        element.textContent = getRandom(values);
+        elapsed += interval;
+        if (elapsed >= duration) {
+          clearInterval(flip);
+          element.textContent = finalValue;
+        }
+      }, interval);
+    }
+
+    function animateImage(element, values, duration, finalValue) {
+      const interval = 100;
+      let elapsed = 0;
+      const flip = setInterval(() => {
+        const fg = getRandom(foregroundImages);
+        const bg = getRandom(backgroundImages);
+        element.innerHTML = `
+    <div style="position: relative; display: inline-block; ">
+      <img src="${bg}" alt="background" style="position: absolute; top: 0; left: 0; width: 400px; height: auto;">
+      <img src="${fg}" alt="logo" style="position: relative; width: 400px; height: auto;">
+    </div>`;
+        elapsed += interval;
+        if (elapsed >= duration) {
+          clearInterval(flip);
+          const keyword = selected['Coin Name'].toLowerCase();
+        let bgMatch = null;
+        if (keyword.includes('granny') || keyword.includes('boomer')) bgMatch = 'background%202/background-purple.png';
+        else if (keyword.includes('frog') || keyword.includes('swamp')) bgMatch = 'background/background-green.png';
+        else if (keyword.includes('cash') || keyword.includes('dollar')) bgMatch = 'background/background-orange.png';
+        else if (keyword.includes('vape') || keyword.includes('alien')) bgMatch = 'background%202/background-pink.png';
+        else if (keyword.includes('robot') || keyword.includes('tv')) bgMatch = 'background%202/background-black.png';
+        else if (keyword.includes('clown') || keyword.includes('idiot')) bgMatch = 'background/background-red.png';
+        const finalBg = bgMatch
+          ? `https://github.com/BXNSAVAGE/memecoin-assets/blob/main/${bgMatch}?raw=true`
+          : getRandom(backgroundImages);
+          element.innerHTML = `
+    <div style="position: relative; display: inline-block; ">
+      <img src="${finalBg}" alt="background" style="position: absolute; top: 0; left: 0; width: 400px; height: auto;">
+      <img src="${finalValue}" alt="logo" style="position: relative; width: 400px; height: auto;">
+    </div>`;
+        }
+      }, interval);
+    }
+
+    function getRarity(score) {
+      if (score > 90) return ['Legendary', 'legendary'];
+      if (score > 60) return ['Rare', 'rare'];
+      return ['Common', 'common'];
+    }
+
+    function generateCoin() {
+  const nameElem = document.getElementById('name');
+  const logoElem = document.getElementById('logo');
+  const storyElem = document.getElementById('story');
+  const extraElem = document.getElementById('extra');
+  const rarityElem = document.getElementById('rarity');
+
+  if (!coinNames.length) {
+    console.warn('No coin data loaded');
+    return;
+  }
+  const selectedIndex = Math.floor(Math.random() * coinNames.length);
+  const selected = coinNames[selectedIndex];
+  const rugScore = Math.floor(Math.random() * 100) + 1;
+  const utility = getRandom(utilities);
+  const keyword = selected['Coin Name'].toLowerCase();
+  const matchMap = [
+    { keyword: 'dog', image: 'foreground-dog2.png' },
+    { keyword: 'frog', image: 'foreground-frog.png' },
+    { keyword: 'granny', image: 'foreground-granny.png' },
+    { keyword: 'toilet', image: 'foreground-toilet.png' },
+    { keyword: 'poop', image: 'foreground-poop.png' },
+    { keyword: 'gun', image: 'foreground-gun.png' },
+    { keyword: 'cash', image: 'foreground-dollarface.png' },
+    { keyword: 'boomer', image: 'foreground-boomer.png' },
+    { keyword: 'clown', image: 'foreground-clown.png' },
+    { keyword: 'vape', image: 'foreground-vape.png' },
+    { keyword: 'wizard', image: 'foreground-wizard.png' },
+    { keyword: 'sniff', image: 'foreground-sniff.png' },
+    { keyword: 'robot', image: 'foreground-robot.png' },
+    { keyword: 'tv', image: 'foreground-tvhead.png' },
+    { keyword: 'jesus', image: 'foreground-jesus.png' },
+    { keyword: 'pee', image: 'foreground-Toilet%20Overflowing%20with%20Coins.png' },
+    { keyword: 'piss', image: 'foreground-Toilet%20Overflowing%20with%20Coins.png' },
+    { keyword: 'banana', image: 'foreground-coin-banana.png' },
+    { keyword: 'bag', image: "foreground-Bagholder%20With%20'REKT'%20Label.png" },
+    { keyword: 'cry', image: 'foreground-crying.png' },
+    { keyword: 'moan', image: 'foreground%20-%20Melting%20Coin%20Screaming%20%E2%80%9CMoan%E2%80%9D.png' },
+    { keyword: 'zombie', image: 'foreground%20-%20Zombie%20Dog%20Chasing%20Coin.png' }
+];
+
+  let match = matchMap.find(m => {
+  const name = selected['Coin Name'].toLowerCase();
+  const desc = selected['Description'].toLowerCase();
+  const combined = `${name} ${desc}`;
+  return combined.includes(m.keyword);
+});
+  const image = match
+    ? foregroundImages.find(img => img.toLowerCase().includes(match.image.toLowerCase())) || getRandom(foregroundImages)
+    : getRandom(foregroundImages);
+  const bg = getRandom(backgroundImages);
+  const [rarityName, rarityClass] = getRarity(rugScore);
+
+  animateText(nameElem, coinNames.map(c => c['Coin Name']), 3000, selected['Coin Name'] || '$UNKNOWN');
+  animateImage(logoElem, foregroundImages, 3000, image);
+  animateText(storyElem, coinNames.map(c => c['Description']), 3000, selected['Description'] || 'No backstory available.');
+  animateText(extraElem, utilities.map(u => `Rug Score: ??% | Utility: ${u}`), 3000, `Rug Score: ${rugScore}% | Utility: ${utility}`);
+
+  setTimeout(() => {
+  const color = rugScore > 80 ? 'red' : rugScore > 40 ? 'orange' : 'lime';
+  const rugHTML = `Rug Score: <span style=\"color:${color}\">${rugScore}%</span> | Utility: ${utility}`;
+  extraElem.innerHTML = rugHTML;
+}, 3000);
+    }
+
+    
+  
+function deployToPump() {
+  let name = document.getElementById('name').textContent.trim();
+  const story = document.getElementById('story').textContent.trim();
+
+  if (name.startsWith('$')) {
+    name = name.slice(1);
+  }
+
+  let ticker = name;
+  if (name.length > 10) {
+    const words = name.match(/[A-Z][a-z]+/g);
+    if (words && words.length >= 2) {
+      ticker = words[0][0] + words[1][0];
+    } else {
+      ticker = name.slice(0, 2).toUpperCase();
+    }
+  }
+
+  const payload = {
+    name: name,
+    ticker: ticker,
+    bio: story,
+    social: 'https://x.com/GenerateACoin'
+  };
+
+  const url = 'https://pump.fun/create#' + btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  window.open(url, '_blank');
+}
+</script>
+
+
+<script>
+  function shareToX() {
+  const name = document.getElementById('name').textContent;
+  const story = document.getElementById('story').textContent;
+  const taglines = [
+    'Minted in delusion with @GenerateACoin',
+    'Crafted in pure cope via @GenerateACoin',
+    'Summoned from the abyss using @GenerateACoin',
+    'Forged in rug hell by @GenerateACoin',
+    'Cooked up mid-scroll with @GenerateACoin',
+    'Designed by goblins, deployed by @GenerateACoin',
+    'Spit out by @GenerateACoin during a panic scroll',
+    'Coded in tears using @GenerateACoin',
+    'Printed without purpose by @GenerateACoin',
+    'Backed by zero thought and @GenerateACoin'
+  ];
+  const tagline = taglines[Math.floor(Math.random() * taglines.length)];
+  const url = encodeURIComponent('https://www.memecoin-generator.fun');
+  const text = encodeURIComponent(`${name} — ${story}
+
+${tagline}`);
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+  }
+</script>
 </body>
 </html>
